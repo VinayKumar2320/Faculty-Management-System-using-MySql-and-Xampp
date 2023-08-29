@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Average Research Publication Rating</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d1c9c9;
+        }
+
+        h1 {
+            background-color: blue;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Faculty Average Research Publication Rating</h1>
+    <h2>Calculate the average research publication rating for each faculty member. Display the faculty ID, first name, last name, and the average rating. 
+        If a faculty member has no research publications or ratings, their average rating should be displayed as null.</h2>
+    <table>
+        <tr>
+            <th>Faculty ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Average Rating</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.faculty_id }}</td>
+            <td>{{ result.first_name }}</td>
+            <td>{{ result.last_name }}</td>
+            <td>{{ result.avg_publication_rating }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prevent Deletion of Faculty with Research Publications Trigger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #bdb9b9;
+        }
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        span {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function confirmDelete(facultyId, cannotBeDeleted) {
+            if (cannotBeDeleted) {
+                var confirmation = confirm("Because of the trigger, you cannot delete this faculty. Are you sure you want to proceed?");
+                if (!confirmation) {
+                    return false; // Prevent default action
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Prevent Deletion of Faculty with Research Publications Trigger</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        {% for faculty in faculty_list %}
+        <tr>
+            <td>{{ faculty.faculty_id }}</td>
+            <td>
+                {{ faculty.first_name }} {{ faculty.last_name }}
+                {% if faculty.cannot_be_deleted %}
+                <span>(Cannot be deleted)</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not faculty.cannot_be_deleted %}
+                <a href="{{ url_for('delete_faculty', faculty_id=faculty.faculty_id) }}">Delete</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
